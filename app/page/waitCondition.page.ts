@@ -4,10 +4,10 @@ import { AppPage } from "../abstract";
 export class WaitCondition extends AppPage {
     public pagePath: string = "/expected_conditions.html";
 
+    private showAlertBtn = (btnName: string) => this.page.getByRole("button", { name: btnName });
     private minMaxWaitBox = this.page.locator("div.card-header.justify-content-center");
     private minInput = this.page.locator("#min_wait");
     private maxInput = this.page.locator("#max_wait");
-    private showAlertBtn = (btnName: string) => this.page.getByRole("button", { name: btnName });
     private confirmedPrompt = this.page.getByText("Confirm response: OK");
     private confirmedAlert = this.page.getByText("Alert handled");
     private triggerHiddenBtn = this.page.locator("#visibility_trigger").getByText("Trigger");
@@ -19,12 +19,18 @@ export class WaitCondition extends AppPage {
         await expect(this.minInput).toBeEditable();
     }
 
-    async setMinMaxAmount(min: number, max: number): Promise<void> {
+    /**
+     * Set min and max values to form
+     * @param min 
+     * @param max 
+     */
+    async setMinMaxAmount(min: number | string, max: number | string): Promise<void> {
         await this.minInput.fill(min.toString());
         await this.maxInput.fill(max.toString());
         await expect(this.minInput).toHaveValue(min.toString());
         await expect(this.maxInput).toHaveValue(max.toString());
     }
+
     /**
      * Click on buttons in wait for condition page.
      * @param name "Show Alert" or "Show Propmpt"
@@ -33,6 +39,9 @@ export class WaitCondition extends AppPage {
         await this.showAlertBtn(name).click();
     }
 
+    /**
+     * Clicks on trigger buttons.
+     */
     async triggerHiddenText() {
         await this.triggerHiddenBtn.click();
         await this.appearedHiddenBtn.click();
