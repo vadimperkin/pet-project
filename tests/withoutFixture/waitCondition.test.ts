@@ -10,7 +10,7 @@ test(`should trigger alert and accept it`, async ({ page }) => {
     await dialog.accept();
   });
   await App.waitCondition.showBtnClick("Show Alert");
-  await App.waitCondition.verifyShowAlertAccepted();
+  await App.waitCondition.verifyShowPopUpAccepted(App.waitCondition.confirmedAlert);
 });
 
 test("it should trigger and check elemennt appearing", async ({ page }) => {
