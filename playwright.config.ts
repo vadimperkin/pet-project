@@ -1,16 +1,15 @@
+import dotenv from 'dotenv';
+import path from 'path';
 import { defineConfig, devices } from '@playwright/test';
+import { DefaultAdmin } from "./fixtures";
 
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// import dotenv from 'dotenv';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
+// Read from ".env" file.
+dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
-export default defineConfig({
+export default defineConfig<DefaultAdmin>({
   testDir: './tests',
   /* Run tests in files in parallel */
   fullyParallel: false,
@@ -37,7 +36,11 @@ export default defineConfig({
       name: 'chrome',
       use: { 
         ...devices['Desktop Chrome'],
-        viewport: { width: 1720, height: 980 }, 
+        viewport: { width: 1720, height: 980 },
+        defaultAdmin: {
+          username: process.env.USERNAME!,
+          password: process.env.PASSWORD!
+        },
       },
     },
 

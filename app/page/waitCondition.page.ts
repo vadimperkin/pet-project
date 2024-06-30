@@ -1,15 +1,15 @@
-import { expect } from "@playwright/test";
+import { Locator, expect } from "@playwright/test";
 import { AppPage } from "../abstract";
 
 export class WaitCondition extends AppPage {
     public pagePath: string = "/expected_conditions.html";
 
+    public confirmedPrompt = this.page.getByText("Confirm response: OK");
+    public confirmedAlert = this.page.getByText("Alert handled");
     private showAlertBtn = (btnName: string) => this.page.getByRole("button", { name: btnName });
     private minMaxWaitBox = this.page.locator("div.card-header.justify-content-center");
     private minInput = this.page.locator("#min_wait");
     private maxInput = this.page.locator("#max_wait");
-    private confirmedPrompt = this.page.getByText("Confirm response: OK");
-    private confirmedAlert = this.page.getByText("Alert handled");
     private triggerHiddenBtn = this.page.locator("#visibility_trigger").getByText("Trigger");
     private appearedHiddenBtn = this.page.locator("#visibility_target").getByText("Click Me");
     private appearedHiddenText = this.page.getByText("Can you see me?");
@@ -51,11 +51,7 @@ export class WaitCondition extends AppPage {
         await expect(this.appearedHiddenText).toBeVisible();
     }
 
-    async verifyShowAlertAccepted(): Promise<void> {
-        await expect(this.confirmedAlert).toBeVisible();
-    }
-
-    async verifyShowPromptAccepted(): Promise<void> {
-        await expect(this.confirmedPrompt).toBeVisible();
+    async verifyShowPopUpAccepted(popUp: Locator): Promise<void> {
+        await expect(popUp).toBeVisible();
     }
 }
