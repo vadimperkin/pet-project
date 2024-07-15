@@ -12,7 +12,7 @@ export class Auth extends AppPage {
     private loginBtn = this.page.getByRole("button", { name: "Log in" });
 
     async login(username: string, password: string) {
-        await this.username.fill(username);
+        await this.username.fill(username, { timeout: 4000 });
         await this.password.fill(password);
         await this.loginBtn.click();
         await expect(this.addToCart).toBeVisible(); // check that we are logged in
@@ -24,5 +24,5 @@ export class Auth extends AppPage {
         await expect(this.password).toBeVisible();
         await expect(this.loginBtn).toBeEnabled();
     }
-    
+
 }
