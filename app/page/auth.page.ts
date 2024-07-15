@@ -24,4 +24,5 @@ export class Auth extends AppPage {
         await expect(this.password).toBeVisible();
         await expect(this.loginBtn).toBeEnabled();
     }
+    
 }
