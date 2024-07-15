@@ -1,5 +1,5 @@
-import dotenv from 'dotenv';
 import path from 'path';
+import dotenv from 'dotenv';
 import { defineConfig, devices } from '@playwright/test';
 import { DefaultAdmin } from "./fixtures";
 
@@ -25,7 +25,7 @@ export default defineConfig<DefaultAdmin>({
     baseURL: 'https://play1.automationcamp.ir',
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
-    headless: false,
+    headless: process.env.CI_JOB_ID ? true : false,
   },
   expect: {
     timeout: 7000,
