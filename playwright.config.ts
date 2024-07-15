@@ -25,7 +25,7 @@ export default defineConfig<DefaultAdmin>({
     baseURL: 'https://play1.automationcamp.ir',
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
-    headless: process.env.CI_JOB_ID ? true : false,
+    headless: process.env.GITHUB_RUN_ID ? true : false,
   },
   expect: {
     timeout: 7000,
