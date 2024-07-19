@@ -1,5 +1,6 @@
-import { test } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import { Application } from "../app";
+import type { DefaultAdmin } from "../app/models";
 
 export const baseFixture = test.extend<{ app: Application }>({
   app: async ({ page }, use) => {
@@ -7,13 +8,6 @@ export const baseFixture = test.extend<{ app: Application }>({
     await use(app);
   },
 });
-
-export type DefaultAdmin = {
-  defaultAdmin: {
-    username: string;
-    password: string;
-  };
-};
 
 export const loginFixture = baseFixture.extend<DefaultAdmin & { app: Application }>({
   defaultAdmin: [
@@ -28,7 +22,9 @@ export const loginFixture = baseFixture.extend<DefaultAdmin & { app: Application
   app: async ({ app, defaultAdmin }, use) => {
     await app.auth.open();
     await app.auth.login(defaultAdmin.username, defaultAdmin.password);
+    await expect(app.auth.addToCart).toBeVisible();
     await use(app);
-    console.log("Executes after test"); 
+
+    console.log("Teard down: executes after test"); 
   }
 });
