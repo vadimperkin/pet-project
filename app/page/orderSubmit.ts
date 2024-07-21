@@ -5,7 +5,7 @@ import type { Ingredients } from "../models";
 export class OrderSubmit extends AppPage {
     public pagePath: string = "/order_submit.html";
 
-    public addToCart = this.page.getByRole("button", { name: "Add to Cart" });
+    private addToCart = this.page.getByRole("button", { name: "Add to Cart" });
     private pizzaSize = (size: string) => this.page.locator(`#rad_${size}`);
     private pizzaFlavour = this.page.locator("#select_flavor");
     private pizzaSauce = (sauce: string) => this.page.getByLabel(sauce);
@@ -13,6 +13,8 @@ export class OrderSubmit extends AppPage {
     private pizzaQuantity = this.page.locator("#quantity");
     private addingToCartDiv = this.page.getByText("Adding to the cart...");
     private addedPizzaMsg = this.page.getByRole("heading", { name: "Pizza added to the cart!" });
+    private qtyError = this.page.getByText(" Quantity must be 1 or more!");
+    private closeQtyErrorBtn = this.page.getByRole("button", { name: "Close" });
 
     async expectLoaded(): Promise<void> {
         await expect(this.addToCart).toBeVisible();
@@ -32,12 +34,20 @@ export class OrderSubmit extends AppPage {
 
     async addPizzaToCart() {
         await this.addToCart.click();
+    }
+
+    async verifyAddingToCart() {
         await expect(this.addingToCartDiv).toBeVisible();
         await this.addingToCartDiv.waitFor({ state: "hidden" });
     }
 
     async verifyCompoundedPizza() {
         await expect(this.addedPizzaMsg).toBeVisible();
+    }
+
+    async verifyNegativeQtyError() {
+        await expect(this.qtyError).toBeVisible();
+        await this.closeQtyErrorBtn.click();
     }
 
     private async selectPizzaSize(size: string) {
