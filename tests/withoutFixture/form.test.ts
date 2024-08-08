@@ -1,7 +1,7 @@
 import { test } from "@playwright/test";
 import { Application } from "../../app";
 
-test.only("should check experience form", async ({ page }) => {
+test("should check experience form", async ({ page }) => {
     const App = new Application(page);
     await App.form.open();
     await App.form.fillExperience(3);
