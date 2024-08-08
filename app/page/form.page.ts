@@ -21,10 +21,11 @@ export class Form extends AppPage {
       await expect(this.formHeader("Basic Form Controls")).toBeVisible();
       await expect(this.formHeader("Form with Validations")).toBeVisible();
       await expect(this.formHeader("Non-English Labels and Locators")).toBeVisible();
+      await expect(this.experience).toBeVisible();
   }
 
   async fillExperience(exp: number | string) {
-    await this.experience.fill(exp.toString());
+    await this.experience.press(exp.toString());
   }
 
   async verifyExperience(text?: number | string) {
