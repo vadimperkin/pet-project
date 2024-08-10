@@ -26,7 +26,7 @@ test("should check many language checkboxes", async ({ page }) => {
 
     await App.form.pickLanguage("javascript");
     await App.form.verifyPickLanguage("python");
-    
+
     await App.form.pickLanguage("python");
     await App.form.verifyPickLanguage("");
 });
