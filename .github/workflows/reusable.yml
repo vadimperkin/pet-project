@@ -1,0 +1,28 @@
+name: Reusable artifact download
+on:
+  workflow_call:
+    inputs:
+      artifact_name:
+        description: The name of artifact that you want to download
+        required: false
+        default: test_name
+        type: string
+      path:
+        description: The path to the artifact that you want to download
+        required: false
+        default: test
+        type: string
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        if: ${{ !cancelled() }}
+        with:
+          name: ${{ inputs.artifact_name }}
+          path: ${{ inputs.path }}
+      - name: Display result
+        run: | 
+          echo "downloaded artifact name - ${{ inputs.artifact_name }} with path - ${{ inputs.path}}"
+          ls
