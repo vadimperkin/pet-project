@@ -45,9 +45,10 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
-          run: |
-            echo "artifact_name=playwright-report" >> $GITHUB_ENV
-            echo "artifact_path=playwright-report/" >> $GITHUB_ENV
+      - name: Set output
+        run: |
+          echo "artifact_name=playwright-report" >> $GITHUB_ENV
+          echo "artifact_path=playwright-report/" >> $GITHUB_ENV
   download_artifact:
     needs: test
     uses: ./.github/workflows/reusable.yml

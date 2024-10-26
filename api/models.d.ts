@@ -58,16 +58,28 @@ export type CatBreeds = ICatBreed[];
 
 // VOTE CONTROLLER STARTS
 export type VotePayload = {
-  image_id: string,
-  sub_id: string,
-  value: number
-}
+  image_id: string;
+  sub_id: string;
+  value: any;
+};
 
 export type VoteResponse = {
-  message: string,
-  id: number,
-  image_id: string,
-  sub_id: string,
-  value: number,
-  country_code: string
+  message: string;
+  id: number;
+  image_id: string;
+  sub_id: string;
+  value: any;
+  country_code: string;
+};
+
+export type Random = { random: string };
+
+export type ImageIdValidType = {
+  image_id: string | number
 }
+
+export type ImageIdInvalidType = {
+  image_id: boolean
+}
+
+export type PossibleVotePayload = VotePayload | Random | ImageIdInvalidType | ImageIdValidType

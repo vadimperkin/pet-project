@@ -1,13 +1,13 @@
 import { Base } from "../abstract";
-import type { VotePayload, VoteResponse } from "../models";
+import type { PossibleVotePayload, VoteResponse } from "../models";
 
 export class VoteController extends Base {
   /**
-   * Vote for user.
+   * Create vote.
    * @param data {VotePayload} vote description in json
    * @returns single vote
    */
-  async createVote(data: VotePayload | { random: string }): Promise<VoteResponse> {
+  async createVote(data: PossibleVotePayload): Promise<VoteResponse> {
     if (!process.env.API_KEY) {
       throw new Error("API_KEY is not defined!");
     }
@@ -36,5 +36,33 @@ export class VoteController extends Base {
       throw new Error(errorMessage);
     }
     return response.json() as Promise<VoteResponse>;
+  }
+
+  /**
+   * Get vote
+   * @param data {VotePayload} vote description in json
+   * @returns single vote
+   */
+  async getVote(sub_id?: string): Promise<VoteResponse | VoteResponse[]> {
+    if (!process.env.API_KEY) {
+      throw new Error("API_KEY is not defined!");
+    }
+    const params = new URLSearchParams();
+    if (sub_id) params.append("sub_id", sub_id);
+
+    try {
+      const response = await this.request.get(
+        `https://api.thecatapi.com/v1/votes?${params.toString()}`,
+        {
+          headers: {
+            "x-api-key": process.env.API_KEY,
+          },
+        }
+      );
+      return response.json() as Promise<VoteResponse>;
+    } catch (error) {
+      const typedError = error as Error;
+      throw new Error(`Error in GET /v1/votes?${params.toString()} - ${typedError.message}`);
+    }
   }
 }
