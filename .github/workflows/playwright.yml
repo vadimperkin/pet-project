@@ -39,19 +39,19 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
-  download_artifact:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: playwright-report  # Must match the uploaded artifact name
-
-
-  # download_artifact: 
+  # download_artifact:
   #   needs: test
-  #   uses: ./.github/workflows/reusable.yml
-  #   with:
-  #     artifact_name: playwright-report
-  #     path: playwright-report/
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Download artifact
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         name: playwright-report  # Must match the uploaded artifact name
+
+
+  download_artifact: 
+    needs: test
+    uses: ./.github/workflows/reusable.yml
+    with:
+      artifact_name: playwright-report
+      path: playwright-report/
