@@ -9,7 +9,7 @@ test("should check experience form", async ({ request }) => {
         value: 1
     }
 
-    const response = await Api.vote.voting({
+    const response = await Api.vote.createVote({
         "image_id": payload.image_id,
         "sub_id": payload.sub_id,
         "value": payload.value

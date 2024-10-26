@@ -26,7 +26,7 @@ test('modify request headers', async ({ page }) => {
     expect(isHeaderExists).toBe(true);
 });
 
-loginFixture("abort images and replace with own", async ({ app, defaultAdmin, page }) => {
+loginFixture("abort images and replace with own", async ({ App, defaultAdmin, page }) => {
     const myImagePath = path.join(__dirname, '..', '..', 'interceptImage.jpeg');
     const myImage = fs.readFileSync(myImagePath);
 
