@@ -49,6 +49,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: playwright-report  # Must match the uploaded artifact name
+          path: ./ 
       - name: Display downloaded artifact
         run: |
           echo "Contents of the downloaded artifact:"
