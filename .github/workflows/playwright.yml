@@ -39,12 +39,19 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
-  download_artifact: 
+  download_artifact:
     needs: test
-    uses: actions/download-artifact@v3
-    with:
-      name: playwright-report
-      path: playwright-report/
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: playwright-report  # Must match the uploaded artifact name
+          path: playwright-report/
+      - name: Display downloaded artifact
+        run: |
+          echo "Contents of the downloaded artifact:"
+          ls -la playwright-report/
 
 
   # download_artifact: 
