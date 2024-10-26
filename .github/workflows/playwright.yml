@@ -43,6 +43,8 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
+      - name: Check folder
+        run: ls -la
       - name: Download artifact
         uses: actions/download-artifact@v3
         with:
