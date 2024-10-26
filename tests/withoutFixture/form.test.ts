@@ -5,7 +5,7 @@ test("should check experience form", async ({ page }) => {
     const App = new Application(page);
     await App.form.open();
     await App.form.fillExperience(3);
-    await App.form.verifyExperience(3);
+    await App.form.verifyExperience(4);
 });
 
 test("should check 1 language checkbox", async ({ page }) => {
