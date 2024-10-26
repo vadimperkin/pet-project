@@ -1,23 +1,38 @@
-import { test, expect } from "@playwright/test";
-import { API } from "../../api";
+import { expect } from "@playwright/test";
+import { baseFixture } from "../../fixtures";
+const payload = {
+  image_id: "60d5f9f4c2b9b6c5a77e9c0d",
+  sub_id: "VP-02367",
+  value: 1,
+};
 
-test("should check experience form", async ({ request }) => {
-    const Api = new API(request);
-    const payload = {
-        image_id: "60d5f9f4c2b9b6c5a77e9c0d",
-        sub_id: "VP-02367",
-        value: 1
-    }
+baseFixture.describe("API tests for Vote Service", async () => {
+  baseFixture("should add positive vote", async ({ Api }) => {
+    const response = await Api.vote.createVote({ ...payload });
 
-    const response = await Api.vote.createVote({
-        "image_id": payload.image_id,
-        "sub_id": payload.sub_id,
-        "value": payload.value
-    });
     expect(response).toMatchObject({
-        message: 'SUCCESS',
-        image_id: payload.image_id,
-        sub_id: payload.sub_id,
-        value: payload.value,
+      ...payload,
+      message: "SUCCESS",
     });
+  });
+
+  baseFixture("should add negatvie vote", async ({ Api }) => {
+    const response = await Api.vote.createVote({ ...payload, value: -1 });
+
+    expect(response).toMatchObject({
+      ...payload,
+      message: "SUCCESS",
+      value: -1,
+    });
+  });
+
+  baseFixture("should not let post data without required field 'image_id'", async ({ Api }) => {
+      try {
+        await Api.vote.createVote({ random: "asd" });
+      } catch (error) {
+        const typedError = error as Error;
+        expect(typedError.message).toContain('"image_id" is required');
+      }
+    }
+  );
 });
