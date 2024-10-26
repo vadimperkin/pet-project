@@ -50,5 +50,5 @@ jobs:
     needs: test
     uses: ./.github/workflows/reusable.yml
     with:
-      name: ${{ needs.test.outputs.artifact_name }}
+      artifact_name: ${{ needs.test.outputs.artifact_name }}
       path: ${{ needs.test.outputs.artifact_path }}
