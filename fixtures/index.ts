@@ -2,10 +2,7 @@ import { expect, test } from "@playwright/test";
 import { Application } from "../app";
 import { API } from "../api";
 
-export const baseFixture = test.extend<{
-  App: Application;
-  Api: API;
-}>({
+export const baseFixture = test.extend<{ App: Application, Api: API }>({
   App: async ({ page }, use) => {
     const app = new Application(page);
     await use(app);

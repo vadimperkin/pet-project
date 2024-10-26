@@ -1,4 +1,4 @@
-name: Reusable artifact download (for report job)
+name: Reusable artifact download (e.g. for report job)
 on:
   workflow_call:
     inputs:
