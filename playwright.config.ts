@@ -1,7 +1,6 @@
 import path from 'path';
 import dotenv from 'dotenv';
 import { defineConfig, devices } from '@playwright/test';
-import type { DefaultAdmin } from './app/models';
 
 // Read from ".env" file.
 dotenv.config({ path: path.resolve(__dirname, '.env') });

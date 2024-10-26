@@ -1,5 +1,3 @@
-import type { Ingredients } from "../app/models";
-
 export function createPositiveIngredients({
     size,
     flavour,

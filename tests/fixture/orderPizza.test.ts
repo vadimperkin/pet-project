@@ -1,5 +1,4 @@
 import { loginFixture } from "../../fixtures";
-import type { Ingredients } from "../../app/models";
 import { createPositiveIngredients } from "../../helpers/constraints";
 
 const ingredientsPositive: Ingredients = createPositiveIngredients({
