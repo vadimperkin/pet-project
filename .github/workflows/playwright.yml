@@ -32,8 +32,6 @@ jobs:
         run: npx playwright install --with-deps
       - name: Run Playwright tests
         run: npx playwright test
-      - name: Verify report directory
-        run: ls -la playwright-report/
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
@@ -43,7 +41,15 @@ jobs:
           retention-days: 30
   download_artifact: 
     needs: test
-    uses: ./.github/workflows/reusable.yml
+    uses: actions/download-artifact@v3
     with:
-      artifact_name: playwright-report
+      name: playwright-report
       path: playwright-report/
+
+
+  # download_artifact: 
+  #   needs: test
+  #   uses: ./.github/workflows/reusable.yml
+  #   with:
+  #     artifact_name: playwright-report
+  #     path: playwright-report/

@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Wait for artifact availability
-        run: sleep 10s
+        run: sleep 5s
       - name: Download artifact
         uses: actions/download-artifact@v3
         if: ${{ !cancelled() }}
