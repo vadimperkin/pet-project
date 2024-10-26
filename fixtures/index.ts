@@ -1,6 +1,5 @@
 import { expect, test } from "@playwright/test";
 import { Application } from "../app";
-import type { DefaultAdmin } from "../app/models";
 
 export const baseFixture = test.extend<{ app: Application }>({
   app: async ({ page }, use) => {

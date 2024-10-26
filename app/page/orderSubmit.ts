@@ -1,6 +1,5 @@
 import { expect } from "@playwright/test";
 import { AppPage } from "../abstract";
-import type { Ingredients } from "../models";
 
 export class OrderSubmit extends AppPage {
     public pagePath: string = "/order_submit.html";
