@@ -8,6 +8,9 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    outputs:
+      artifact_name: ${{ steps.upload.outputs.artifact_name }}
+      artifact_path: ${{ steps.upload.outputs.artifact_path }}
     env:
       USERNAME: ${{ secrets.USERNAME }}
       PASSWORD: ${{ secrets.PASSWORD }}
@@ -33,15 +36,19 @@ jobs:
       - name: Run Playwright tests
         run: npx playwright test
       - name: Upload artifact
+        id: upload
         uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
+        if: ${{ !failure() && steps.test.outcome != 'failure' }}
         with:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
-  download_artifact: 
+          run: |
+            echo "artifact_name=playwright-report" >> $GITHUB_ENV
+            echo "artifact_path=playwright-report/" >> $GITHUB_ENV
+  download_artifact:
     needs: test
     uses: ./.github/workflows/reusable.yml
     with:
-      artifact_name: playwright-report
-      path: playwright-report/
+      artifact_name: ${{ needs.test.outputs.artifact_name }}
+      path: ${{ needs.test.outputs.artifact_path }}
