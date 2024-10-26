@@ -32,6 +32,8 @@ jobs:
         run: npx playwright install --with-deps
       - name: Run Playwright tests
         run: npx playwright test
+      - name: Verify report directory
+        run: ls -la playwright-report/
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
@@ -45,4 +47,3 @@ jobs:
     with:
       artifact_name: playwright-report
       path: playwright-report/
-      retention-days: 30

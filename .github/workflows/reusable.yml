@@ -1,4 +1,4 @@
-name: Reusable artifact download
+name: Reusable artifact download (for report job)
 on:
   workflow_call:
     inputs:
@@ -12,13 +12,12 @@ on:
         required: true
         default: test
         type: string
-      retention-days:
-        required: false
-        type: number
 jobs:
   download:
     runs-on: ubuntu-latest
     steps:
+      - name: Wait for artifact availability
+        run: sleep 10s
       - name: Download artifact
         uses: actions/download-artifact@v3
         if: ${{ !cancelled() }}
@@ -27,5 +26,5 @@ jobs:
           path: ${{ inputs.path }}
       - name: Display result
         run: | 
-          echo "downloaded artifact name - ${{ inputs.artifact_name }} with path - ${{ inputs.path}}"
+          echo "Downloaded artifact name - ${{ inputs.artifact_name }} at path - ${{ inputs.path}}"
           ls
