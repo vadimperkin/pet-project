@@ -4,14 +4,17 @@ on:
     inputs:
       artifact_name:
         description: The name of artifact that you want to download
-        required: false
+        required: true
         default: test_name
         type: string
       path:
         description: The path to the artifact that you want to download
-        required: false
+        required: true
         default: test
         type: string
+      retention-days:
+        required: false
+        type: number
 jobs:
   download:
     runs-on: ubuntu-latest
