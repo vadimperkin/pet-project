@@ -28,8 +28,8 @@ jobs:
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
+      - name: Install Chrome Browser
+        run: npx playwright install chromium
       - name: Run Playwright tests
         run: npx playwright test
       - name: Upload artifact
@@ -43,19 +43,10 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Check folder
-        run: ls -la
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
           name: playwright-report  # Must match the uploaded artifact name
-          path: ./ 
-      - name: Display downloaded artifact
-        run: |
-          echo "Contents of the downloaded artifact:"
-          ls -la playwright-report/
 
 
   # download_artifact: 
