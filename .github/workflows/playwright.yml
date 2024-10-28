@@ -74,6 +74,4 @@ jobs:
         with:
           node-version: 20
       - name: Send test report email
-        run: |
-          cd helpers/
-          node reportSender.js
+        run: node helpers/reportSender.js
