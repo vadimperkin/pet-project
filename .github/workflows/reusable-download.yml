@@ -12,11 +12,11 @@ on:
         required: true
         default: test
         type: string
+permissions:
+  contents: write
+  pages: write     
 jobs:
   download:
-    permissions:
-      contents: write  # This allows write access to your repository's contents
-      pages: write     # This allows pushing to GitHub Pages
     runs-on: ubuntu-latest
     steps:
       - name: Download artifact
