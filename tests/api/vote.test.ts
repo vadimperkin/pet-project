@@ -1,9 +1,11 @@
 import { expect } from "@playwright/test";
 import { baseFixture } from "../../fixtures";
 import type { VoteResponse } from "../../api/models";
+import { randomBytes } from 'crypto';
+
 const payload = {
-  image_id: "60d5f9f4c2b9b6c5a77e9c0d",
-  sub_id: "VP-02367",
+  image_id: `${randomBytes(8).toString('hex')}`,
+  sub_id: `VP-${randomBytes(8).toString('hex')}`,
   value: 1,
 };
 

@@ -59,7 +59,7 @@ export class VoteController extends Base {
           },
         }
       );
-      return response.json() as Promise<VoteResponse>;
+      return response.json();
     } catch (error) {
       const typedError = error as Error;
       throw new Error(`Error in GET /v1/votes?${params.toString()} - ${typedError.message}`);

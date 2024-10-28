@@ -36,6 +36,7 @@ jobs:
       - name: Install Chrome Browser
         run: npx playwright install chromium
       - name: Run Playwright tests
+        id: test
         run: npx playwright test
       - name: Upload artifact
         id: upload
@@ -51,7 +52,7 @@ jobs:
           echo "artifact_path=playwright-report/" >> $GITHUB_ENV
   download_artifact:
     needs: test
-    uses: ./.github/workflows/reusable.yml
+    uses: ./.github/actions/reusable-download.yml
     with:
       artifact_name: ${{ needs.test.outputs.artifact_name }}
       path: ${{ needs.test.outputs.artifact_path }}
