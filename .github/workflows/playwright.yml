@@ -50,17 +50,22 @@ jobs:
         run: |
           echo "artifact_name=playwright-report" >> $GITHUB_ENV
           echo "artifact_path=playwright-report/" >> $GITHUB_ENV
-  download_artifact:
-    needs: test
-    uses: ./.github/workflows/reusable-download.yml
-    with:
-      artifact_name: ${{ needs.test.outputs.artifact_name }}
-      path: ${{ needs.test.outputs.artifact_path }}
+  # download_artifact:
+  #   needs: test
+  #   uses: ./.github/workflows/reusable-download.yml
+  #   with:
+  #     artifact_name: ${{ needs.test.outputs.artifact_name }}
+  #     path: ${{ needs.test.outputs.artifact_path }}
   deploy-report:
-    needs: download_artifact
+    needs: test
     runs-on: ubuntu-latest
     steps:
-      - name: "Send test report to Github Pages"
+      - name: Download artifact
+        uses: ./.github/workflows/reusable-download.yml
+        with:
+          artifact_name: ${{ needs.test.outputs.artifact_name }}
+          path: ${{ needs.test.outputs.artifact_path }}
+      - name: Send test report to Github Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
