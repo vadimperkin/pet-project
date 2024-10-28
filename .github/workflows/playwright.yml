@@ -63,6 +63,7 @@ jobs:
       path: ${{ needs.test.outputs.artifact_path }}
       publish_branch: gh-pages
   send_report:
+    needs: deploy_report
     runs-on: ubuntu-latest
     steps:
       - name: Get code
@@ -71,7 +72,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Send test report email
+      - name: Compile TypeScript
         run: |
           cd helpers/
-          node reportSender.js
+          npx tsc reportSender.ts
+      - name: Send test report email
+        run: node reportSender.js
