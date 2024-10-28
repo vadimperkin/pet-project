@@ -12,6 +12,11 @@ on:
         required: true
         default: test
         type: string
+      publish_branch:
+        description: The branch where you want to upload test report
+        required: false
+        default: gh-pages
+        type: string
 permissions:
   contents: write
   pages: write     
@@ -34,8 +39,8 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./playwright-report
-          publish_branch: gh-pages
+          publish_branch: ${{ inputs.publish_branch }}
       - name: Display report
         run: |
-          echo "REPO_URL=https://vadimperkin.github.io/${{ github.repository }}" >> $GITHUB_ENV
-          echo `Playwright test report link - $REPO_URL`
+          echo "REPO_URL=https://${{ github.event.repository.owner }}.github.io/${{ github.event.repository.name }}" >> $GITHUB_ENV
+          echo "Playwright test report link - $REPO_URL"
