@@ -17,12 +17,12 @@ const ingredientsNegative: Ingredients = {
     quantity: -1
 }
 
-// loginFixture("check positive ordering pizza flow", async ({ App }) => {
-//     await App.orderSubmit.compoundPizza(ingredientsPositive);
-//     await App.orderSubmit.addPizzaToCart();
-//     await App.orderSubmit.verifyAddingToCart();
-//     await App.orderSubmit.verifyCompoundedPizza();
-// });
+loginFixture("check positive ordering pizza flow", async ({ App }) => {
+    await App.orderSubmit.compoundPizza(ingredientsPositive);
+    await App.orderSubmit.addPizzaToCart();
+    await App.orderSubmit.verifyAddingToCart();
+    await App.orderSubmit.verifyCompoundedPizza();
+});
 
 loginFixture("check negative ordering pizza flow", async ({ App }) => {
     await App.orderSubmit.compoundPizza(ingredientsNegative);

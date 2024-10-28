@@ -40,7 +40,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./playwright-report
           publish_branch: ${{ inputs.publish_branch }}
-      - name: Display report
-        run: |
-          echo "REPO_URL=https://${{ github.event.repository.owner.login }}.github.io/${{ github.event.repository.name }}" >> $GITHUB_ENV
-          echo "Playwright test report link - ${{ env.REPO_URL }}"
+      - name: Create report env var
+        run: echo "REPO_URL=https://${{ github.event.repository.owner.login }}.github.io/${{ github.event.repository.name }}" >> $GITHUB_ENV 
+      - name: Display the report link
+        run: echo "Playwright test report link - ${{ env.REPO_URL }}"
