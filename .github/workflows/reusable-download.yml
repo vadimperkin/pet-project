@@ -12,6 +12,8 @@ on:
         required: true
         default: test
         type: string
+    outputs:
+      report: ${{ }}
 jobs:
   download:
     runs-on: ubuntu-latest
@@ -26,3 +28,12 @@ jobs:
         run: | 
           echo "Downloaded artifact name - ${{ inputs.artifact_name }} at path - ${{ inputs.path}}"
           ls -la
+      - name: Send test report to Github Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./playwright-report
+          publish_branch: gh-pages
+      # - name: Set output
+      #   run: echo "report=playwright-report" >> $GITHUB_ENV
+        
