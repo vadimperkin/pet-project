@@ -14,6 +14,9 @@ on:
         type: string
 jobs:
   download:
+    permissions:
+      contents: write  # This allows write access to your repository's contents
+      pages: write     # This allows pushing to GitHub Pages
     runs-on: ubuntu-latest
     steps:
       - name: Download artifact
