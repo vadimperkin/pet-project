@@ -18,14 +18,12 @@ jobs:
       PASSWORD: ${{ secrets.PASSWORD }}
       API_KEY: ${{ secrets.API_KEY }}
     steps:
-      - name: Get code & install NodeJS
-        uses: ./.github/workflows/actions/code-node/action.yml
-      # - name: Get code
-      #   uses: actions/checkout@v4
-      # - name: Setup Node
-      #   uses: actions/setup-node@v4
-      #   with:
-      #     node-version: 20
+      - name: Get code
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
       - name: Cache dependencies
         id: cache
         uses: actions/cache@v3
