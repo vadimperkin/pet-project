@@ -11,6 +11,7 @@ const transporter = nodemailer.createTransport({
 });
 
 const mailOptions = {
+  from: "someAnonymousUserTest@gmail.com",
   to: process.env.EMAIL_RECEIVER,
   subject: 'GitHub "Pet-projects" test report ',
   text: 'Here you can find actual test report -  https://vadimperkin.github.io/pet-project', 
