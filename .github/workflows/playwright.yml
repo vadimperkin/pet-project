@@ -73,9 +73,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Compile TypeScript
+      - name: Send test report email
         run: |
           cd helpers/
-          npx tsc reportSender.ts
-      - name: Send test report email
-        run: node reportSender.js
+          node reportSender.js
