@@ -60,6 +60,8 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
+      - name: Get code
+        uses: actions/checkout@v4
       - name: Download artifact
         uses: ./.github/workflows/reusable-download.yml
         with:
