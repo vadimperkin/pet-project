@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer';
+const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
   host: 'email-smtp.us-east-1.amazonaws.com',
