@@ -20,9 +20,6 @@ jobs:
       USERNAME: ${{ secrets.USERNAME }}
       PASSWORD: ${{ secrets.PASSWORD }}
       API_KEY: ${{ secrets.API_KEY }}
-      SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
-      SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
-      EMAIL_RECEIVER: ${{ secrets.EMAIL_RECEIVER }}
     steps:
       - name: Get code
         uses: actions/checkout@v4
@@ -66,6 +63,10 @@ jobs:
   send_report:
     needs: deploy_report
     runs-on: ubuntu-latest
+    env:
+      SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+      SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+      EMAIL_RECEIVER: ${{ secrets.EMAIL_RECEIVER }}
     steps:
       - name: Get code
         uses: actions/checkout@v4
