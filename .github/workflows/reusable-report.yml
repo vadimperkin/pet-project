@@ -42,5 +42,5 @@ jobs:
           publish_branch: ${{ inputs.publish_branch }}
       - name: Display report
         run: |
-          echo "REPO_URL=https://${{ github.event.repository.owner }}.github.io/${{ github.event.repository.name }}" >> $GITHUB_ENV
+          echo "REPO_URL=https://${{ github.event.repository.owner.login }}.github.io/${{ github.event.repository.name }}" >> $GITHUB_ENV
           echo "Playwright test report link - $REPO_URL"
