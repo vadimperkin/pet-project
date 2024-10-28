@@ -1,7 +1,7 @@
 import nodemailer from 'nodemailer';
 
 const transporter = nodemailer.createTransport({
-  host: 'email-smtp.us-east-1.amazonaws.com', // Replace <region> with your AWS SES region (e.g., us-east-1)
+  host: 'email-smtp.us-east-1.amazonaws.com',
   port: 25,
   secure: false,
   auth: {
@@ -11,13 +11,13 @@ const transporter = nodemailer.createTransport({
 });
 
 const mailOptions = {
-  to: 'vperkinv@gmail.com',
+  to: process.env.EMAIL_RECEIVER,
   subject: 'GitHub "Pet-projects" test report ',
   text: 'Here you can find actual test report -  https://vadimperkin.github.io/pet-project', 
 };
 
 // Send email
-transporter.sendMail(mailOptions, (error: Error | null, info: any) => {
+transporter.sendMail(mailOptions, (error, info) => {
   if (error) {
     return console.log('Error occurred: ' + error.message);
   }
