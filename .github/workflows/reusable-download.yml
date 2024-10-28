@@ -12,8 +12,6 @@ on:
         required: true
         default: test
         type: string
-    outputs:
-      report: ${{ }}
 jobs:
   download:
     runs-on: ubuntu-latest
