@@ -52,7 +52,7 @@ jobs:
           echo "artifact_path=playwright-report/" >> $GITHUB_ENV
   download_artifact:
     needs: test
-    uses: ./.github/actions/reusable-download.yml@main
+    uses: ./.github/workflows/actions/reusable-download.yml
     with:
       artifact_name: ${{ needs.test.outputs.artifact_name }}
       path: ${{ needs.test.outputs.artifact_path }}
