@@ -56,3 +56,9 @@ jobs:
     with:
       artifact_name: ${{ needs.test.outputs.artifact_name }}
       path: ${{ needs.test.outputs.artifact_path }}
+  depploy-report:
+    needs: download_artifact
+    uses: peaceiris/actions-gh-pages@v4
+    with:
+      github_token: ${{ github.token }}
+      publish_dir: ./playwright-report
