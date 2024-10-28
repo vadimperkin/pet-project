@@ -18,7 +18,7 @@ jobs:
       PASSWORD: ${{ secrets.PASSWORD }}
       API_KEY: ${{ secrets.API_KEY }}
     steps:
-      - name: "Get code & install NodeJS"
+      - name: Get code & install NodeJS
         uses: ./.github/workflows/actions/code-node/action.yml
       # - name: Get code
       #   uses: actions/checkout@v4
@@ -54,7 +54,7 @@ jobs:
           echo "artifact_path=playwright-report/" >> $GITHUB_ENV
   download_artifact:
     needs: test
-    uses: ./.github/workflows/actions/reusable-download.yml
+    uses: ./.github/workflows/reusable-download.yml
     with:
       artifact_name: ${{ needs.test.outputs.artifact_name }}
       path: ${{ needs.test.outputs.artifact_path }}
