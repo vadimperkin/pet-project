@@ -6,6 +6,9 @@ on:
   pull_request:
     branches:
       - main
+permissions:
+  contents: write  
+  pages: write     
 jobs:
   test:
     timeout-minutes: 60
@@ -26,7 +29,7 @@ jobs:
           node-version: 20
       - name: Cache dependencies
         id: cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: node_modules
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
@@ -36,6 +39,7 @@ jobs:
       - name: Install Chrome Browser
         run: npx playwright install chromium
       - name: Run Playwright tests
+        id: test
         run: npx playwright test
       - name: Upload artifact
         id: upload
@@ -49,9 +53,10 @@ jobs:
         run: |
           echo "artifact_name=playwright-report" >> $GITHUB_ENV
           echo "artifact_path=playwright-report/" >> $GITHUB_ENV
-  download_artifact:
+  deploy_report:
     needs: test
-    uses: ./.github/workflows/reusable.yml
+    uses: ./.github/workflows/reusable-report.yml
     with:
       artifact_name: ${{ needs.test.outputs.artifact_name }}
       path: ${{ needs.test.outputs.artifact_path }}
+      publish_branch: gh-pages
