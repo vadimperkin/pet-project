@@ -59,3 +59,4 @@ jobs:
     with:
       artifact_name: ${{ needs.test.outputs.artifact_name }}
       path: ${{ needs.test.outputs.artifact_path }}
+      publish_branch: gh-pages
