@@ -63,5 +63,5 @@ jobs:
       - name: "Send test report to Github Pages"
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ github.token }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./playwright-report
