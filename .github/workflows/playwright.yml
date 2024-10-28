@@ -60,3 +60,22 @@ jobs:
       artifact_name: ${{ needs.test.outputs.artifact_name }}
       path: ${{ needs.test.outputs.artifact_path }}
       publish_branch: gh-pages
+  send_report:
+    needs: deploy_report
+    runs-on: ubuntu-latest
+    env:
+      SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+      SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+      EMAIL_RECEIVER: ${{ secrets.EMAIL_RECEIVER }}
+      EMAIL_SENDER: ${{ secrets.EMAIL_SENDER }}
+    steps:
+      - name: Get code
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Send test report email
+        run: |
+          npm install nodemailer
+          node helpers/reportSender.js
