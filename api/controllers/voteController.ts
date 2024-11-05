@@ -11,31 +11,29 @@ export class VoteController extends Base {
     if (!process.env.API_KEY) {
       throw new Error("API_KEY is not defined!");
     }
+    try {
+      const response = await this.request.post(
+        `https://api.thecatapi.com/v1/votes`,
+        {
+          data,
+          headers: {
+            "x-api-key": process.env.API_KEY,
+          },
+        }
+      );
 
-    const response = await this.request.post(
-      `https://api.thecatapi.com/v1/votes`,
-      {
-        data,
-        headers: {
-          "x-api-key": process.env.API_KEY,
-        },
+      if (!response.ok()) {
+        const contentType = response.headers()["content-type"];
+        const errorMessage =
+          contentType && contentType.includes("application/json")
+            ? await response.json()
+            : await response.text();
+        throw new Error(errorMessage);
       }
-    );
-
-    if (!response.ok()) {
-      let errorMessage: string;
-
-      const contentType = response.headers()["content-type"];
-
-      if (contentType && contentType.includes("application/json")) {
-        const errorResponse = await response.json();
-        errorMessage = errorResponse.message;
-      } else {
-        errorMessage = await response.text();
-      }
-      throw new Error(errorMessage);
+      return response.json() as Promise<VoteResponse>;
+    } catch (error) {
+      throw new Error(`Failed to create vote: ${(error as Error).message}`);
     }
-    return response.json() as Promise<VoteResponse>;
   }
 
   /**
@@ -59,10 +57,13 @@ export class VoteController extends Base {
           },
         }
       );
-      return response.json();
+      return response.json() as Promise<VoteResponse>;
     } catch (error) {
-      const typedError = error as Error;
-      throw new Error(`Error in GET /v1/votes?${params.toString()} - ${typedError.message}`);
+      throw new Error(
+        `Error in GET /v1/votes?${params.toString()} - ${
+          (error as Error).message
+        }`
+      );
     }
   }
 }
