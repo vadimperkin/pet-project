@@ -14,8 +14,8 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     outputs:
-      artifact_name: ${{ steps.upload.outputs.artifact_name }}
-      artifact_path: ${{ steps.upload.outputs.artifact_path }}
+      artifact_name: ${{ steps.output.outputs.artifact_name }}
+      artifact_path: ${{ steps.output.outputs.artifact_path }}
     env:
       USERNAME: ${{ secrets.USERNAME }}
       PASSWORD: ${{ secrets.PASSWORD }}
@@ -50,6 +50,7 @@ jobs:
           path: playwright-report/
           retention-days: 30
       - name: Set output
+        id: output
         run: |
           echo "artifact_name=playwright-report" >> $GITHUB_ENV
           echo "artifact_path=playwright-report/" >> $GITHUB_ENV
