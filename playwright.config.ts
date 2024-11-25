@@ -8,7 +8,7 @@ dotenv.config({ path: path.resolve(__dirname, '.env') });
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
-export default defineConfig<DefaultAdmin>({
+export default defineConfig<DefaultAdmin & DefaultIngredients>({
   testDir: './tests',
   /* Run tests in files in parallel */
   fullyParallel: false,
